@@ -11,7 +11,7 @@ class Comment(models.Model):
     post_comment = models.ForeignKey(
         Post, on_delete=models.CASCADE, verbose_name='Post')
     user_comment = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, verbose_name='Username')
+        User, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Username')
     date_comment = models.DateTimeField(
         default=timezone.now, verbose_name='Date')
     publish_comment = models.BooleanField(
