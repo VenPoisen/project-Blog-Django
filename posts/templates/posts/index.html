@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load am_filters %}
 
 {% block content %}
 
@@ -25,11 +26,7 @@
             <p class="card-text">
                 <small class="text-muted">
                     {{ post.date_post|naturalday|title }}
-                    {% if post.comments_number == 1 %}
-                    | {{ post.comments_number }} comment
-                    {% else %}
-                    | {{ post.comments_number }} comments
-                    {% endif %}
+                    | {{ post.comments_number|plural_comments }}
                     | {{ post.category_post }}
                 </small>
             </p>
