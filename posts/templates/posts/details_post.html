@@ -20,22 +20,19 @@
     </div>
 
     <div class="row pt-5">
-        <div class="col-xl"></div>
         <div class="col-xl-8">
 
             {% if post.image_post %}
             <img class="img-fluid pb-5 " src="{{ post.image_post.url }}" alt="">
             {% endif %}
-
-            {{ post.content_post|safe }}
-
         </div>
-        <div class="col-xl"></div>
+        <div class="table-responsive">
+            {{ post.content_post|safe }}
+        </div>
     </div>
 
     {% if comments %}
     <div class="row pt-5">
-        <div class="col-xl"></div>
         <div class="col-xl-8">
             <h2 class="my-3">Comments ({{comments.count}})</h2>
 
@@ -49,24 +46,22 @@
 
 
         </div>
-        <div class="col-xl"></div>
     </div>
     {% endif %}
 
     <div class="row pt-5">
-        <div class="col-xl"></div>
         <div class="col-xl-8">
             <h2 class="my-3">Leave a comment</h2>
 
             <form method="POST" action="#send_comment">
                 {% csrf_token %}
 
-                <table class="table">
+                <table class="table-responsive">
                     {{ form }}
                     <tr>
                         <td colspan="2">
                             {% include 'partials/_messages.html' %}
-                            <input id="send_comment" type="submit" class="btn btn-primary" value="Send">
+                            <input id="send_comment" type="submit" class="btn btn-primary float-right" value="Send">
                         </td>
                     </tr>
                 </table>
@@ -74,7 +69,6 @@
 
 
         </div>
-        <div class="col-xl"></div>
     </div>
 </div>
 
