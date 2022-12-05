@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
-from django.views.generic.edit import UpdateView
+from django.views import View
 from posts.models import Post
 from django.db.models import Q, Count, Case, When
 from comments.forms import FormComment
@@ -66,30 +66,35 @@ class PostCategory(PostIndex):
         return qs
 
 
-class PostDetails(UpdateView):
+class PostDetails(View):
     template_name = 'posts/details_post.html'
-    model = Post
-    form_class = FormComment
-    context_object_name = 'post'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post = self.get_object()
-        comments = Comment.objects.filter(
-            publish_comment=True, post_comment=post.id)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
 
-        context['comments'] = comments
+        pk = self.kwargs.get('pk')
+        post = get_object_or_404(Post, pk=pk, publish_post=True)
+        self.context = {
+            'post': post,
+            'comments': Comment.objects.filter(post_comment=post, publish_comment=True),
+            'form': FormComment(request.POST or None),
+        }
 
-        return context
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.context)
 
-    def form_valid(self, form):
-        post = self.get_object()
-        comment = Comment(**form.cleaned_data)
-        comment.post_comment = post
+    def post(self, request, *args, **kwargs):
+        form = self.context['form']
 
-        if self.request.user.is_authenticated:
-            comment.user_comment = self.request.user
+        if not form.is_valid():
+            return render(request, self.template_name, self.context)
 
+        comment = form.save(commit=False)
+
+        if request.user.is_authenticated:
+            comment.user_comment = request.user
+
+        comment.post_comment = self.context['post']
         comment.save()
-        messages.success(self.request, 'comment sent successfully')
-        return redirect('post_details', pk=post.id)
+        messages.success(request, 'Your comment has been sent for review')
+        return redirect('post_details', pk=self.kwargs.get('pk'))
