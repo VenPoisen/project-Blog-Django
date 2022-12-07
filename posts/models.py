@@ -27,7 +27,8 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        self.resize_image(self.image_post.name, 800)
+        if self.imagem_post:
+            self.resize_image(self.image_post.name, 800)
 
     @staticmethod
     def resize_image(img_name, new_width):
