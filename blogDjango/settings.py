@@ -39,13 +39,14 @@ INSTALLED_APPS = [
     'posts',
     'categories',
     'comments',
+    'ckeditor',
+    'ckeditor_uploader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_summernote',
     'django.contrib.humanize',
 ]
 
@@ -144,7 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media
 
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # Messages
 
@@ -157,3 +158,24 @@ MESSAGE_TAGS = {
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# CKEDITOR
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        "removePlugins": ['stylesheetparser', 'iframe'],
+        'allowedContent': True,
+        'disallowedContent': '*{max-width*,width*}',
+        'extraPlugins': ['youtube', 'uploadimage', 'image2', 'link'],
+    },
+    # 'extra_plugins': ['youtube', 'uploadimage', 'image2', 'link'],
+    # 'external_plugin_resources': [
+    #     ('youtube', '../templates/static/plugins/youtube/', 'plugin.js',),
+    #     ('uploadimage', '../templates/static/plugins/uploadimage/', 'plugin.js',),
+    #     ('image2', '../templates/static/plugins/image2/', 'plugin.js',),
+    #     ('link', '../templates/static/plugins/link/dialogs', 'link.js',)
+    # ],
+
+}

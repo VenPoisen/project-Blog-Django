@@ -1,14 +1,12 @@
 from django.contrib import admin
 from .models import Post
-from django_summernote.admin import SummernoteModelAdmin
 
 
-class PostAdmin(SummernoteModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'title_post', 'author_post', 'date_post',
                     'category_post', 'publish_post')
     list_editable = ('publish_post',)
     list_display_links = ('id', 'title_post',)
-    summernote_fields = ('content_post',)
 
 
 admin.site.register(Post, PostAdmin)
