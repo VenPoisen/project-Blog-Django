@@ -36,11 +36,6 @@ ALLOWED_HOSTS = ['blog-django.onrender.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'posts',
-    'categories',
-    'comments',
-    'ckeditor',
-    'ckeditor_uploader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'posts',
+    'categories',
+    'comments',
+    'ckeditor',
+    'ckeditor_uploader',
     'axes',
 ]
 
@@ -67,7 +67,7 @@ ROOT_URLCONF = 'blogDjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,7 +142,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'templates/static',
 ]
@@ -169,7 +169,7 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
 }
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+# X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # CKEDITOR
 
