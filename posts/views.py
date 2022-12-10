@@ -6,6 +6,10 @@ from django.db.models import Q, Count, Case, When
 from comments.forms import FormComment
 from comments.models import Comment
 from django.contrib import messages
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 class PostIndex(ListView):
@@ -78,6 +82,7 @@ class PostDetails(View):
             'post': post,
             'comments': Comment.objects.filter(post_comment=post, publish_comment=True),
             'form': FormComment(request.POST or None),
+            'recaptcha_key': env('GOOGLE_RECAPTCHA_WEB_KEY'),
         }
 
     def get(self, request, *args, **kwargs):
