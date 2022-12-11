@@ -175,8 +175,6 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
 }
 
-# X_FRAME_OPTIONS = 'SAMEORIGIN'
-
 # CKEDITOR
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
