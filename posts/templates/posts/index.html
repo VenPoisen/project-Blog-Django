@@ -4,35 +4,38 @@
 
 {% block content %}
 
-<div class="card-columns mt-4">
+<div class="row mt-4">
 
     {% for post in posts %}
+    <div class="col-12 col-md-6 col-xl-4 mb-4">
+        <div class="card h-100">
 
-    <div class="card">
+            {% if post.image_post %}
+            <a id="img-a" href="{% url 'post_details' post.id %}">
+                <img class="card-img-top" src="{{ post.image_post.url }}" alt="{{ post.title_post }}">
+            </a>
+            {% endif %}
 
-        {% if post.image_post %}
-        <a href="{% url 'post_details' post.id %}">
-            <img class="card-img-top" src="{{ post.image_post.url }}" alt="{{ post.title_post }}">
-        </a>
-        {% endif %}
+            <div class="card-body d-flex flex-wrap">
+                <h5 class="card-title">
+                    <a href="{% url 'post_details' post.id %}">
+                        {{ post.title_post }}
+                    </a>
+                </h5>
+                <p class="card-text">{{ post.summary_post }}</p>
+                <div class="align-self-end w-100">
+                    <p class="card-text">
+                        <small class="text-muted">
+                            {{ post.date_post|naturalday|title }}
+                            | {{ post.comments_number|plural_comments }}
+                            | {{ post.category_post }}
+                        </small>
+                    </p>
 
-        <div class="card-body">
-            <h5 class="card-title">
-                <a href="{% url 'post_details' post.id %}">
-                    {{ post.title_post }}
-                </a>
-            </h5>
-            <p class="card-text">{{ post.summary_post }}</p>
-            <p class="card-text">
-                <small class="text-muted">
-                    {{ post.date_post|naturalday|title }}
-                    | {{ post.comments_number|plural_comments }}
-                    | {{ post.category_post }}
-                </small>
-            </p>
-
-            <div class="text-right">
-                <a href="{% url 'post_details' post.id %}" class="btn btn-outline-secondary">Read more...</a>
+                    <div class="text-right">
+                        <a href="{% url 'post_details' post.id %}" class="btn btn-outline-secondary">Read more...</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
