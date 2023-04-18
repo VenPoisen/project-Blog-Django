@@ -9,5 +9,5 @@ This is a project created using Django with the intention of making blog article
     - There is a search field that can find blogs by searching the title, summary or content
   - Admin page ➡️ Accessed by superuser to edit, create and delete users, blogs or comments.
 
-### Deploy on Render.com
-This Project was deployed using a free account web service on Render.com
+### Deploy on AWS EC2
+This Project was deployed using an instance on EC2 --> [access here](https://blog.alanmf.com)
