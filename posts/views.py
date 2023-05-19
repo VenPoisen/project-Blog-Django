@@ -53,6 +53,19 @@ class PostSearch(PostIndex):
 
         return qs
 
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        search_term = self.request.GET.get('term')
+
+        if not search_term:
+            return ctx
+
+        ctx.update({
+            "additional_url_query": f'&term={search_term}',
+        })
+
+        return ctx
+
 
 class PostCategory(PostIndex):
     template_name = 'posts/category_post.html'
